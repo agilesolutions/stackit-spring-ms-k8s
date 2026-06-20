@@ -1,1 +1,11 @@
 rootProject.name = 'stackit-spring-ms-k8s'
+include ':case-service'
+project(':case-service').projectDir = new File(settingsDir, 'services/case-service')
+include ':citizen-service'
+project(':citizen-service').projectDir = new File(settingsDir, 'services/citizen-service')
+include ':permit-service'
+project(':permit-service').projectDir = new File(settingsDir, 'services/permit-service')
+include ':gateway'
+project(':gateway').projectDir = new File(settingsDir, 'services/gateway')
+include ':common-security'
+project(':common-security').projectDir = new File(settingsDir, 'libraries/common-security')
