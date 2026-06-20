@@ -1,0 +1,35 @@
+
+stages:
+  - build
+  - test
+  - docker
+  - deploy
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+build:
+  stage: build
+  image: gradle:8-jdk21
+  script:
+    - gradle clean build
+
+test:
+  stage: test
+  image: gradle:8-jdk21
+  script:
+    - gradle test
+
+docker:
+  stage: docker
+  image: docker:24
+  services:
+    - docker:dind
+  script:
+    - echo "build docker images here"
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "update gitops repo trigger flux"
