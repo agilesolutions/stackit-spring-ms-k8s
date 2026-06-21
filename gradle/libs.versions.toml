@@ -4,6 +4,9 @@ springBoot = "4.0.6"
 springCloud = "2023.0.3"
 
 [libraries]
-spring-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
+spring-web = { module = "org.springframework.boot:spring-boot-starter-webmvc", version.ref = "springBoot" }
 spring-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "springBoot" }
+spring-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
 oauth2-resource = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server", version.ref = "springBoot" }
+oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client", version.ref = "springBoot" }
+lombok = { module = "org.projectlombok:lombok", version = "1.18.24" }

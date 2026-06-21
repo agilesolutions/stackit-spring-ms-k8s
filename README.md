@@ -1,6 +1,26 @@
 # STACKIT SpringBoot MicroServices referentie project
 Ter evaluatie van E2E ontwikkeling, deployment en provisionering van enterprise SpringBoot applicaties op STACKIT SKE Kubernetes Engine.
 
+## Waarom STACKIT
+In 2026 hebben KPN en STACKIT (onderdeel van Schwarz Digits) een samenwerking aangekondigd waarbij STACKIT-cloudservices vanuit Nederlandse KPN-datacenters worden aangeboden.
+Deze samenwerking biedt een aantrekkelijk alternatief voor Azure Spring Cloud, met voordelen zoals:
+- Lagere kosten en transparante prijsmodellen.
+- Volledige datalocatie binnen Nederland, wat kan helpen bij compliance met lokale regelgeving.
+- Toegang tot een breed scala aan STACKIT-services, zoals STACKIT Secrets Manager, STACKIT Argus, en STACKIT Kubernetes Engine, die naadloos integreren met de SpringBoot applicatie.
+- Ondersteuning voor moderne cloud-native architecturen en DevOps-praktijken, inclusief GitOps provisioning met FluxCD, Infrastructure as Code (IaC) met Terraform, en CI/CD pipelines met GitLab CI/CD.
+
+## Doelgroep
+- Nederlandse overheden
+- Gemeenten
+- Provincies
+- Zorginstellingen
+- Financiële instellingen
+- Vitale infrastructuur
+
+De Nederlandse rijksoverheid heeft STACKIT bovendien geselecteerd als een Europees cloudalternatief binnen een raamovereenkomst.
+
+
+## Doelstelling dit referentie project
 Het uitgangspunt is het migreren van een bestaand Azure Spring Cloud referentie project naar STACKIT SKE, waarbij we de volgende aspecten in ogenschouw nemen:
 - Applicatie architectuur en code migratie van Azure Spring Cloud naar STACKIT SKE.
 - Integratie van STACKIT-specifieke services en faciliteiten, zoals STACKIT Secrets Manager, STACKIT Argus, en STACKIT Kubernetes Engine.
@@ -22,16 +42,36 @@ Production-grade cloud-native reference architecture:
 - Terraform IaC
 - GitLab CI/CD
 
-## Services
-- citizen-service
-- permit-service
-- case-service
+## Op basis van een simple Use Case - Digitaal Vergunningenportaal
+Dit is een herkenbare use case voor gemeenten. Een digitaal vergunningenportaal waar burgers en bedrijven online vergunningen kunnen aanvragen, inzien en beheren. De applicatie bestaat uit 2 microservices:
+1. Vergunning service: Behandelt de core business logica rondom vergunningen, inclusief aanvraagverwerking, statusbeheer en communicatie met tweede Microservice.
+2. Zakenregister service: Exposeert een API voor het beheren van zaken (vergunningaanvragen) en fungeert als een client van de Vergunning service. Deze service is ook verantwoordelijk voor genereren van Zaaknummer, registrerenen en status beheer.
+3. Keycloak: De Identity Provider (IdP) die draait op het STACKIT SKE cluster. Keycloak beheert gebruikers, rollen en clientconfiguraties. De Zaakregistratie service is geconfigureerd als een OAuth2 Resource Server die JWT tokens valideert, terwijl de Vergunning service fungeert als een OAuth2 Client die tokens aanvraagt bij Keycloak voor authenticatie en autorisatie. 
+4. STACKIT SKE: De Kubernetes Engine waarop alle services draaien. De applicatie wordt gecontaineriseerd met Docker en gedeployed als Kubernetes Deployments. Ingress controllers worden gebruikt voor externe toegang, en ConfigMaps/Secrets voor configuratiebeheer. Horizontal Pod Autoscaling (HPA) is ingesteld op basis van CPU/memory metrics.
+5. Observability stack: Prometheus voor metrics scraping, Grafana voor dashboarding, en Loki voor log-aggregatie. De Spring Boot applicaties exposen actuator endpoints voor metrics en health checks, die worden gescraped door Prometheus. Grafana dashboards bieden inzicht in de performance en gezondheid van de services, terwijl Loki gestructureerde logs verzamelt voor troubleshooting en monitoring.
+6. Helm chart: Alle Kubernetes resources worden beheerd via een Helm chart, inclusief Deployments, Services, Ingress, ConfigMaps, Secrets en HPA. De chart is parametriseerbaar via values.yaml, waardoor het eenvoudig is om verschillende omgevingen (development, staging, production) te ondersteunen.
+7. Terraform: De infrastructuur voor het STACKIT SKE cluster wordt geprovisioned via Terraform, inclusief de cluster zelf, nodepools, VPC, subnets en LoadBalancer services. Terraform zorgt voor een herhaalbare en consistente provisioning van de benodigde infrastructuur resources.
+8. CI/CD pipeline: GitLab CI/CD pipeline die de volgende stappen omvat: Maven build en unit tests → Docker image bouwen en pushen naar STACKIT Container Registry → Helm upgrade op het SKE cluster → integratietests. Deze pipeline zorgt voor een geautomatiseerde en gestroomlijnde deployment van de applicatie naar het STACKIT SKE cluster, met ingebouwde kwaliteitschecks en rollback mogelijkheden.
+9. Security: Keycloak is geconfigureerd met de juiste realm, clients, en gebruikers/rollen om zowel de Vergunning service als de Zakenregister service te beveiligen. De Vergunning service valideert JWT tokens die door Keycloak worden uitgegeven, terwijl de Zakenregister service tokens aanvraagt bij Keycloak om toegang te krijgen tot beveiligde endpoints van de Vergunning service. Deze setup zorgt voor een veilige communicatie tussen de services en een robuuste authenticatie- en autorisatie flow.
+9. Observability: De applicatie is instrumented met Micrometer, waardoor belangrijke metrics zoals request rates, latency, en JVM performance worden verzameld. Prometheus scrapt deze metrics via een ServiceMonitor, en Grafana dashboards bieden inzicht in de gezondheid en performance van de services. Loki verzamelt gestructureerde logs voor troubleshooting en monitoring, waardoor een volledig observability stack is opgezet voor de applicatie.
+10. GitOps provisioning: FluxCD wordt gebruikt voor het beheren van de Kubernetes resources via GitOps. Alle Kubernetes manifests worden opgeslagen in een Git repository, en FluxCD zorgt voor een automatische synchronisatie van deze resources naar het STACKIT SKE cluster. Dit zorgt voor een declaratieve en versiebeheerbare aanpak voor het beheren van de infrastructuur en applicatie resources.
 
-De drie services werken als volgt samen: citizen-service is de publieke ingang met OIDC authorization code flow voor de eindgebruiker — het valideert de JWT van Keycloak en stuurt requests door. case-service is de orchestrerende gateway die via client credentials een eigen service-token ophaalt bij Keycloak voordat hij permit-service aanroept. permit-service is de beveiligde database-service die eveneens een inkomende client credentials JWT verwacht en verder niets naar buiten bloot stelt.
-
-<img title="Use Case" alt="Alt text" src="/docus/diagrams/three_service_oauth2_architecture.png" width="800">
-
-
+## Workflow
+```
+Burger
+|
+POST /vergunningen
+|
+Vergunning Service
+|
+OIDC Client Credentials
+|
+POST /zaken
+|
+Zakenregistratie Service
+|
+PostgreSQL
+```
 
 ## Project structure
 ```
