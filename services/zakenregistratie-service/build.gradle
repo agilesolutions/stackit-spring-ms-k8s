@@ -30,5 +30,7 @@ dependencies {
     implementation libs.spring.doc.ui
     implementation libs.lombok
     annotationProcessor libs.lombok
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation libs.spring.web.test
+    testImplementation libs.spring.boot.test
+
 }
