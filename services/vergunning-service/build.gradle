@@ -20,10 +20,13 @@ repositories {
 }
 
 dependencies {
-    implementation project(':common-security')
+    implementation project(':common')
     implementation libs.spring.web
     implementation libs.spring.security
     implementation libs.oauth2.client
+    implementation libs.spring.data.validation
+    implementation libs.spring.doc.api
+    implementation libs.spring.doc.ui
     implementation libs.lombok
     annotationProcessor libs.lombok
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,5 +1,9 @@
 package com.agilesolutions.zakenregistratie.service;
 
+import com.agilesolutions.common.domain.ZaakStatus;
+import com.agilesolutions.common.domain.ZaakType;
+import com.agilesolutions.common.dto.ZaakRequest;
+import com.agilesolutions.common.dto.ZaakResponse;
 import com.agilesolutions.zakenregistratie.entity.Zaak;
 import com.agilesolutions.zakenregistratie.repository.ZaakRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +19,27 @@ public class ZaakService {
 
     private final ZaakRepository repository;
 
-    public Zaak registreer(UUID vergunningId) {
+    public ZaakResponse registreer(ZaakRequest request) {
 
         Zaak zaak = new Zaak();
 
-        zaak.setVergunningId(vergunningId);
-        zaak.setZaaknummer("ZAAK-" + UUID.randomUUID());
+        zaak.setId(UUID.randomUUID());
+        zaak.setVergunningId(request.vergunningId());
+        zaak.setZaaknummer("ZAAK-" + System.currentTimeMillis());
+        zaak.setZaakType(request.zaakType().name());
         zaak.setStatus("OPEN");
         zaak.setAangemaaktOp(LocalDateTime.now());
 
-        return repository.save(zaak);
+        repository.save(zaak);
+
+        return new ZaakResponse(
+                zaak.getId(),
+                zaak.getVergunningId(),
+                zaak.getZaaknummer(),
+                ZaakType.valueOf(zaak.getZaakType()),
+                ZaakStatus.valueOf(zaak.getStatus()),
+                zaak.getAangemaaktOp()
+        );
     }
 
     public Optional<Zaak> findById(UUID vergunningId) {

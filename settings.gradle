@@ -3,5 +3,5 @@ include ':vergunning-service'
 project(':vergunning-service').projectDir = new File(settingsDir, 'services/vergunning-service')
 include ':zakenregistratie-service'
 project(':zakenregistratie-service').projectDir = new File(settingsDir, 'services/zakenregistratie-service')
-include ':common-security'
-project(':common-security').projectDir = new File(settingsDir, 'libraries/common-security')
+include ':common'
+project(':common').projectDir = new File(settingsDir, 'libraries/common')

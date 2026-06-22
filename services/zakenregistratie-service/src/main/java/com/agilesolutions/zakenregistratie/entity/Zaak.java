@@ -22,6 +22,8 @@ public class Zaak {
 
     private String zaaknummer;
 
+    private String zaakType;
+
     private String status;
 
     private LocalDateTime aangemaaktOp;

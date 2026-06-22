@@ -1,12 +1,20 @@
 
 server:
-  port: 8083
+  port: 8080
 
-spring:
+
   application:
-    name: case-service
+    name: vergunning-service
+
   security:
     oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://keycloak:8080/realms/demo
+      client:
+        registration:
+          keycloak:
+            client-id: vergunning-service
+            client-secret: cZ5Rb3UWpsb7Hm0BfnYmg5EWrJVDA2rc
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            token-uri: http://keycloak/auth/realms/demo/protocol/openid-connect/token
+

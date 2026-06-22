@@ -1,12 +1,17 @@
 
 [versions]
 springBoot = "4.0.6"
-springCloud = "2023.0.3"
+springDoc = "2.8.9"
 
 [libraries]
 spring-web = { module = "org.springframework.boot:spring-boot-starter-webmvc", version.ref = "springBoot" }
 spring-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "springBoot" }
 spring-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
+spring-data-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "springBoot" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
+spring-boot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+spring-doc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springDoc" }
+spring-doc-api = { module = "org.springdoc:springdoc-openapi-starter-webmvc-api", version.ref = "springDoc" }
 oauth2-resource = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server", version.ref = "springBoot" }
 oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client", version.ref = "springBoot" }
-lombok = { module = "org.projectlombok:lombok", version = "1.18.24" }
+lombok = { module = "org.projectlombok:lombok", version = "1.18.44" }

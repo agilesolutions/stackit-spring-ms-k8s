@@ -1,6 +1,7 @@
 package com.agilesolutions.zakenregistratie.controller;
 
 import com.agilesolutions.common.dto.ZaakRequest;
+import com.agilesolutions.common.dto.ZaakResponse;
 import com.agilesolutions.zakenregistratie.entity.Zaak;
 import com.agilesolutions.zakenregistratie.service.ZaakService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +18,13 @@ public class ZakenRegistratieController {
     private final ZaakService zaakService;
 
     @PostMapping
-    public ResponseEntity<Zaak> registreer(
+    public ResponseEntity<ZaakResponse> registreer(
             @RequestBody ZaakRequest request) {
 
-        Zaak zaak =
-                zaakService.registreer(request.vergunningId());
+        var response =
+                zaakService.registreer(request);
 
-        return ResponseEntity.ok(zaak);
+        return ResponseEntity.ok(response);
 
     }
 
