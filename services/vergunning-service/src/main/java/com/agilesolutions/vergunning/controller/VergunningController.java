@@ -35,7 +35,7 @@ public class VergunningController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<VergunningResponse> aanvraag(@Valid
                                                            @Parameter(description = "De aanvraaggegevens voor de vergunning",
-                                                                   example = "{\"aanvrager\": \"John Doe\", \"type\": \"BOUWVERGUNNING\", \"details\": \"Aanvraag voor bouw van een nieuwe woning.\"}",
+                                                                   example = "{\"aanvrager\": \"Robert Rong\", \"type\": \"BOUWVERGUNNING\", \"details\": \"Aanvraag voor bouw van een nieuwe woning.\"}",
                                                                    required = true)
                                                            @RequestBody VergunningRequest request) {
 

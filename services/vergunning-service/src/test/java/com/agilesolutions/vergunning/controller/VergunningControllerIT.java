@@ -3,13 +3,16 @@ package com.agilesolutions.vergunning.controller;
 import com.agilesolutions.common.domain.ZaakType;
 import com.agilesolutions.common.dto.VergunningRequest;
 import com.agilesolutions.common.dto.VergunningResponse;
-import com.agilesolutions.vergunning.exception.GlobalExceptionHandler;
+import com.agilesolutions.vergunning.config.AbstractIntegrationTest;
+import com.agilesolutions.vergunning.security.JwtTokenProvider;
 import com.agilesolutions.vergunning.service.VergunningService;
+import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,13 +24,21 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(VergunningController.class)
-@Import(GlobalExceptionHandler.class)
-class VergunningControllerTest {
+@SpringBootTest(webEnvironment = RANDOM_PORT)
+@AutoConfigureMockMvc
+class VergunningControllerIT extends AbstractIntegrationTest {
+
+
+    @Autowired
+    MockMvc mvc;
+
+    @Autowired
+    KeycloakContainer keycloak;
 
     @Autowired
     private MockMvc mockMvc;
@@ -64,12 +75,21 @@ class VergunningControllerTest {
     @Test
     void aanvraag_ValidRequest_ReturnsCreated() throws Exception {
 
+        JwtTokenProvider provider =
+                new JwtTokenProvider(keycloak);
+
+        String token = provider.getClientCredentialsToken(
+                "vergunning-service",
+                "test-secret");
+
         // Mock de service om een geldig antwoord te geven
         when(vergunningService.aanvragen(any(VergunningRequest.class)))
                 .thenReturn(validResponse);
 
         // Voer de POST-aanvraag uit
         ResultActions resultActions = mockMvc.perform(post("/api/v1/vergunningen")
+                        .header(HttpHeaders.AUTHORIZATION,
+                                "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(validRequest)))
                 .andExpect(status().isCreated())

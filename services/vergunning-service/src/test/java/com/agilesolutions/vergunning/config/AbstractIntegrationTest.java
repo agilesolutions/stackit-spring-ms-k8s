@@ -1,4 +1,4 @@
-package com.agilesolutions.zakenregistratie.config;
+package com.agilesolutions.vergunning.config;
 
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.springframework.boot.test.context.SpringBootTest;

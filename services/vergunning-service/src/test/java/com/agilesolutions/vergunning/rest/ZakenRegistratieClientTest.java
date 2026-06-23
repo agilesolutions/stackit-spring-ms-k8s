@@ -1,7 +1,8 @@
-package com.agilesolutions.vergunning.config;
+package com.agilesolutions.vergunning.rest;
 
 import com.agilesolutions.common.domain.ZaakType;
 import com.agilesolutions.common.dto.ZaakRequest;
+import com.agilesolutions.vergunning.config.ZakenRegistratieClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.restclient.test.autoconfigure.RestClientTest;

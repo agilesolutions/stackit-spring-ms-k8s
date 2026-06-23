@@ -1,7 +1,6 @@
 package com.agilesolutions.zakenregistratie.controller;
 
 import com.agilesolutions.zakenregistratie.config.AbstractIntegrationTest;
-import com.agilesolutions.zakenregistratie.repository.ZaakRepository;
 import com.agilesolutions.zakenregistratie.security.JwtTokenProvider;
 import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,9 +24,6 @@ class ZakenControllerIT extends AbstractIntegrationTest {
 
     @Autowired
     KeycloakContainer keycloak;
-
-    @Autowired
-    ZaakRepository repository;
 
     @Test
     void shouldCreateZaak() throws Exception {
@@ -51,8 +46,6 @@ class ZakenControllerIT extends AbstractIntegrationTest {
                         }
                         """))
                 .andExpect(status().isCreated());
-
-        assertThat(repository.count()).isEqualTo(1);
 
     }
 

@@ -26,9 +26,9 @@ public class ZaakService {
         zaak.setId(UUID.randomUUID());
         zaak.setVergunningId(request.vergunningId());
         zaak.setZaaknummer("ZAAK-" + System.currentTimeMillis());
-        zaak.setZaakType(request.zaakType().name());
-        zaak.setStatus("OPEN");
-        zaak.setAangemaaktOp(LocalDateTime.now());
+        zaak.setZaakType(request.zaakType());
+        zaak.setStatus(ZaakStatus.OPEN);
+        zaak.setRegistratieDatum(LocalDateTime.now());
 
         repository.save(zaak);
 
@@ -36,9 +36,9 @@ public class ZaakService {
                 zaak.getId(),
                 zaak.getVergunningId(),
                 zaak.getZaaknummer(),
-                ZaakType.valueOf(zaak.getZaakType()),
-                ZaakStatus.valueOf(zaak.getStatus()),
-                zaak.getAangemaaktOp()
+                zaak.getZaakType(),
+                zaak.getStatus(),
+                zaak.getRegistratieDatum()
         );
     }
 
