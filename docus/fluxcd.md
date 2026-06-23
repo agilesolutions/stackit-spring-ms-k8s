@@ -13,17 +13,17 @@ Operating as a "pull-based" agent inside the cluster, it automates deployment by
 ## Setup FluxCD and Deploy the Application
 1. Clone the GitHub repository containing the application and FluxCD configuration:
 ```
-git clone https://github.com/agilesolutions/haven-poc.git
+git clone https://github.com/agilesolutions/stackit-spring-ms-k8s.git
 ```
 2. Navigate to the project directory and build each individual service like here under and setup FluxCD
 ```bash
-cd apps/service-a
+cd services/vergunning-service
 # this will build the service and push the Docker image to the container registry (e.g., Docker Hub, ECR)
 gradle release
 ```
 3. Bootstrap FluxCD in your Kubernetes cluster:
 ```
-flux bootstrap github --owner=agilesolutions --repository=haven-poc --branch=master --path=fluxCD --personal
+flux bootstrap github --owner=agilesolutions --repository=stackit-spring-ms-k8s --branch=master --path=fluxCD --personal
 ```
 5. Monitor the deployment status using FluxCD and kubectl:
 ```bash

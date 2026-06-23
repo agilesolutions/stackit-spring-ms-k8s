@@ -3,6 +3,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: zakenregistratie-service
+  namespace: services
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-haven"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:

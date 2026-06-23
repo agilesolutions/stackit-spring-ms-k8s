@@ -122,6 +122,14 @@ springboot-stackit-reference/
     ├── architecture.md
     └── runbook.md
 ```
+## GITOPS - manage applicaties met FluxCD.
+[Central idea is to show how to use GitOps](./docus/GitOps.md) (FluxCD) to manage the deployment of a microservices application on Kubernetes.
+1. How to bootstrap FluxCD in your Kubernetes cluster:
+```
+flux bootstrap github --owner=agilesolutions --repository=stackit-spring-ms-k8s --branch=master --path=clusters/dev --personal
+```
+Read full instructions in [docus/fluxcd.md](./docus/fluxcd.md)
+
 ## Layered structure
 1. SpringBoot App
 Spring Boot 4.x met Java 25. REST API gedocumenteerd via SpringDoc OpenAPI (Swagger UI). Domeinmodel met JPA/Hibernate, Flyway voor schema-migraties. Spring Security geconfigureerd als OAuth2 Resource Server die JWT tokens van Keycloak valideert.

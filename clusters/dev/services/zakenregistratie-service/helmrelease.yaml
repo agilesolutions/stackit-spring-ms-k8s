@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: zakenregistratie-service
+  namespace: services
+spec:
+  interval: 1m
+  install:
+    createNamespace: true
+  chart:
+    spec:
+      chart: ./helm/zakenregistratie-service/helm
+      sourceRef:
+        kind: GitRepository
+        name: platform-gitops
+        namespace: flux-system
+  values:
+    image:
+      repository: agilesolutions/zakenregistratie-service
+      tag: 1.0.0
+    service:
+      port: 8081
+    ingress:
+      enabled: true
+      className: nginx
+      host: zakenregistratie.local
