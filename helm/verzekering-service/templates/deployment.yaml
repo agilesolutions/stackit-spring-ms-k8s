@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "vergunning-service.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: vergunning-service
+  template:
+    metadata:
+      labels:
+        app: vergunning-service
+    spec:
+      serviceAccountName: vergunning-service
+      containers:
+        - name: vergunning-service
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: {{ include "vergunning-service.fullname" . }}
+            - secretRef:
+                name: {{ include "vergunning-service.fullname" . }}
+          resources:
+  {{ toYaml .Values.resources | indent 12 }}
+
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8080
+
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: 8080

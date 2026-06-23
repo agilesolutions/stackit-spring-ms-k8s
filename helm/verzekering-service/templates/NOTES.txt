@@ -1,0 +1,25 @@
+Release succesvol geïnstalleerd.
+Controleer:
+kubectl get pods
+kubectl get svc
+kubectl get ingress
+kubectl get hpa
+Production uitbreidingen
+Voor een productieklare STACKIT Government Reference Architecture kunnen de volgende componenten worden toegevoegd:
+•	TLS via cert-manager
+•	External Secrets Operator (HashiCorp Vault/Azure Key Vault)
+•	Pod Security Standards
+•	Prometheus ServiceMonitor
+•	Grafana dashboards
+•	OpenTelemetry Java Agent
+•	Jaeger/Tempo tracing
+•	Argo Rollouts (Blue/Green of Canary)
+•	ArgoCD Application manifest
+•	Kubernetes Gateway API
+•	KEDA voor event-driven autoscaling
+•	Vertical Pod Autoscaler
+•	TopologySpreadConstraints
+•	Affinity en AntiAffinity regels
+•	SecurityContext met non-root containers
+•	ImagePullSecrets voor private registries
+•	Helm unittest en chart-testing ondersteuning

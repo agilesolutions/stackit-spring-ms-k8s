@@ -1,5 +1,6 @@
 package com.agilesolutions.vergunning.controller;
 
+import com.agilesolutions.common.domain.ZaakStatus;
 import com.agilesolutions.common.domain.ZaakType;
 import com.agilesolutions.common.dto.VergunningRequest;
 import com.agilesolutions.common.dto.VergunningResponse;
@@ -65,9 +66,9 @@ class VergunningControllerIT extends AbstractIntegrationTest {
         validResponse = new VergunningResponse(
                 UUID.fromString("1"),
                 "Robert Rong",
-                "BOUWVERGUNNING",
+                ZaakStatus.OPEN,
                 LocalDateTime.now(),
-                "IN_BEHANDELING"
+                "Vergunning succesvol geregistreerd"
         );
 
     }

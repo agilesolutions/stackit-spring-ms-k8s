@@ -1,5 +1,7 @@
 package com.agilesolutions.common.dto;
 
+import com.agilesolutions.common.domain.ZaakStatus;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,7 +11,7 @@ public record VergunningResponse(
 
         String zaaknummer,
 
-        String status,
+        ZaakStatus status,
 
         LocalDateTime aanvraagDatum,
 

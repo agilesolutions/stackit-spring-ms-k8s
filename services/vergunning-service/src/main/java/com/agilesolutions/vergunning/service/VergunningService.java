@@ -28,7 +28,7 @@ public class VergunningService {
         return new VergunningResponse(
                 zaak.vergunningId(),
                 zaak.zaaknummer(),
-                "INGEDIEND",
+                zaak.status(),
                 LocalDateTime.now(),
                 "Vergunning succesvol geregistreerd");
     }

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vergunning-service
+spec:
+  selector:
+    app: vergunning-service
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: {{ .Values.service.type }}

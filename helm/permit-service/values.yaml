@@ -1,7 +1,0 @@
-
-image:
-  repository: ghcr.io/agilesolutions/demo
-  tag: latest
-
-service:
-  port: 8080
