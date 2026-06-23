@@ -22,6 +22,7 @@ repositories {
 dependencies {
     implementation project(':common')
     implementation libs.spring.web
+    implementation libs.spring.webmvc
     implementation libs.spring.security
     implementation libs.oauth2.client
     implementation libs.spring.data.validation
@@ -29,7 +30,11 @@ dependencies {
     implementation libs.spring.doc.ui
     implementation libs.lombok
     annotationProcessor libs.lombok
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation libs.spring.web.test
     testImplementation libs.spring.boot.test
+    testImplementation libs.spring.restclient.test
+    testImplementation libs.spring.test.containers
+    testImplementation libs.jupiter.test.containers
+    testImplementation libs.keycloak.test.containers
+
 }

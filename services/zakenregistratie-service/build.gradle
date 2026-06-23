@@ -22,15 +22,25 @@ repositories {
 dependencies {
     implementation project(':common')
     implementation libs.spring.web
+    implementation libs.spring.webmvc
     implementation libs.spring.security
     implementation libs.spring.data.jpa
     implementation libs.oauth2.resource
     implementation libs.spring.data.validation
+    implementation libs.flyway.core
+    implementation libs.flyway.pg
     implementation libs.spring.doc.api
     implementation libs.spring.doc.ui
     implementation libs.lombok
     annotationProcessor libs.lombok
+    runtimeOnly libs.postgresql.runtime
+
     testImplementation libs.spring.web.test
+    testImplementation libs.spring.jpa.test
     testImplementation libs.spring.boot.test
+    testImplementation libs.spring.test.containers
+    testImplementation libs.jupiter.test.containers
+    testImplementation libs.postgresql.test.containers
+    testImplementation libs.keycloak.test.containers
 
 }

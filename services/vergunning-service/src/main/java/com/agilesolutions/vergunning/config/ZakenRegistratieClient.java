@@ -2,7 +2,6 @@ package com.agilesolutions.vergunning.config;
 
 import com.agilesolutions.common.dto.ZaakRequest;
 import com.agilesolutions.common.dto.ZaakResponse;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
