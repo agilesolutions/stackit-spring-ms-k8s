@@ -15,21 +15,21 @@ variable "region" {
 }
 
 variable "postgres_password" {
-  default = ""
+  default = "postgres"
 }
 
 variable "keycloak_db_password" {
-  default = ""
+  default = "admin"
 }
 
 variable "keycloak_admin_password" {
-  default = ""
+  default = "admin"
 }
 
 variable "github_token" {
-  default = ""
+  default = "tbs"
 }
 
 variable "grafana_admin_password" {
-  default = ""
+  default = "admin"
 }

@@ -88,7 +88,7 @@ resource "kubernetes_manifest" "vergunning_service_secret" {
 
       name = "vergunning-service"
 
-      namespace = "applications"
+      namespace = "services"
 
     }
 
@@ -164,7 +164,7 @@ resource "kubernetes_manifest" "zaken_service_secret" {
 
       name = "zakenregistratie-service"
 
-      namespace = "applications"
+      namespace = "services"
 
     }
 
