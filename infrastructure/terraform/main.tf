@@ -139,11 +139,9 @@ module "cert_manager" {
 
   source = "./modules/cert-manager"
 
-  depends_on = [
-    module.ingress_nginx
-  ]
-}
+  email = "robert.rong@agile-solutions.ch"
 
+}
 ##############################################
 # External Secrets Operator
 ##############################################

@@ -1,5 +1,6 @@
 # STACKIT SpringBoot MicroServices referentie project
 Ter evaluatie van E2E ontwikkeling, deployment en provisionering van enterprise SpringBoot applicaties op STACKIT SKE Kubernetes Engine.
+Terraform bouwt STACKIT op, FluxCD beheert de volledige Kubernetes-configuratie en Spring Boot microservices worden volledig GitOps-gedreven uitgerold.
 
 ## Waarom STACKIT
 In 2026 hebben KPN en STACKIT (onderdeel van Schwarz Digits) een samenwerking aangekondigd waarbij STACKIT-cloudservices vanuit Nederlandse KPN-datacenters worden aangeboden.

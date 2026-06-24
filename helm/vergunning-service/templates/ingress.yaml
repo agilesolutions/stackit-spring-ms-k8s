@@ -5,7 +5,7 @@ metadata:
   name: vergunning-service
   namespace: services
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-haven"
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: {{ .Values.ingress.className }}
@@ -20,4 +20,8 @@ spec:
                 name: vergunning-service
                 port:
                   number: 8080
+  tls:
+    - secretName: vergunning-service-tls
+      hosts:
+        - {{ .Values.ingress.host }}
   {{- end }}
