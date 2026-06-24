@@ -7,4 +7,5 @@ data:
   LOG_LEVEL: {{ .Values.config.LOG_LEVEL | quote }}
   DB_HOST: {{ .Values.postgres.host | quote }}
   DB_NAME: {{ .Values.postgres.database | quote }}
+  DB_USERNAME: {{ .Values.postgres.username | quote }}
   KEYCLOAK_ISSUER_URI: {{ .Values.keycloak.issuerUri | quote }}

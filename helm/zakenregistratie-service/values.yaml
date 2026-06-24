@@ -9,39 +9,35 @@ service:
   type: ClusterIP
   port: 8080
 
-  ingress:
-    enabled: true
-    className: nginx
-    host: zakenregistratie.local
+ingress:
+  enabled: true
+  className: nginx
+  host: zakenregistratie.local
 
-  resources:
+resources:
 
-    requests:
-      cpu: 250m
-      memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 512Mi
 
-    limits:
-      cpu: "1"
-      memory: 1Gi
+  limits:
+    cpu: "1"
+    memory: 1Gi
 
-  autoscaling:
-    enabled: true
-    minReplicas: 2
-    maxReplicas: 10
-    cpu: 70
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  cpu: 70
 
-  config:
-    SPRING_PROFILES_ACTIVE: kubernetes
-    LOG_LEVEL: INFO
+config:
+  SPRING_PROFILES_ACTIVE: kubernetes
+  LOG_LEVEL: INFO
 
-  secret:
-    POSTGRES_USERNAME: zakenregistratie
-    POSTGRES_PASSWORD: zakenregistratie
-    OAUTH_CLIENT_SECRET: test-secret
+postgres:
+  host: postgres
+  database: zakenregistratiedb
+  username: postgresql
 
-  postgres:
-    host: postgres
-    database: zakenregistratiedb
-
-  keycloak:
-    issuerUri: http://keycloak:8080/realms/overheid
+keycloak:
+  issuerUri: http://keycloak:8080/realms/overheid

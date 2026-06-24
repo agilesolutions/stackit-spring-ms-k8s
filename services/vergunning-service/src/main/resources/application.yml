@@ -12,7 +12,7 @@ server:
         registration:
           keycloak:
             client-id: vergunning-service
-            client-secret: cZ5Rb3UWpsb7Hm0BfnYmg5EWrJVDA2rc
+            client-secret: ${CLIENT_SECRET}
             authorization-grant-type: client_credentials
         provider:
           keycloak:
