@@ -140,14 +140,17 @@ modules/
 Equivalenten voor wat you normailiter vindt op Azure clusters, ja ik roep maar wat (-;
 
 ```
-| Azure                      | Open Source Stack |
-| -------------------------- | ----------------- |
-| Azure Monitor              | Prometheus        |
-| Azure Log Analytics        | Loki              |
-| Azure Application Insights | OpenTelemetry     |
-| Azure Distributed Tracing  | Tempo             |
-| Azure Dashboards           | Grafana           |
-| Azure Monitor Alerts       | AlertManager      |
+| Azure Monitor Stack  | STACKIT/Kubernetes Stack |
+| -------------------- | ------------------------ |
+| Azure Monitor        | Prometheus               |
+| Application Insights | OpenTelemetry            |
+| Log Analytics        | Loki                     |
+| Distributed Tracing  | Tempo                    |
+| Workbooks            | Grafana Dashboards       |
+| Azure AD             | Keycloak                 |
+| Azure Monitor Alerts | AlertManager             |
+| Managed Grafana      | Grafana Helm             |
+
 ```
 
 

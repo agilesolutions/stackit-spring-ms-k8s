@@ -250,3 +250,29 @@ module "otel_collector" {
     module.ske
   ]
 }
+
+
+##############################################
+# Grafana
+##############################################
+
+module "grafana" {
+
+  source = "./modules/grafana"
+
+  hostname =
+  "grafana.platform.example.nl"
+
+  admin_password =
+  var.grafana_admin_password
+
+  prometheus_url =
+  "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local"
+
+  loki_url =
+  "http://loki-gateway.monitoring.svc.cluster.local"
+
+  tempo_url =
+  "http://tempo.monitoring.svc.cluster.local:3100"
+
+}

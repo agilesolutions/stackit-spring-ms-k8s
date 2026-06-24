@@ -29,3 +29,7 @@ variable "keycloak_admin_password" {
 variable "github_token" {
   default = ""
 }
+
+variable "grafana_admin_password" {
+  default = ""
+}
