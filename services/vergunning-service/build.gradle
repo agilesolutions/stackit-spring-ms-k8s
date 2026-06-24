@@ -37,6 +37,11 @@ dependencies {
     implementation libs.spring.doc.ui
     implementation libs.lombok
     annotationProcessor libs.lombok
+
+    // observability
+    implementation libs.otlp.appender
+    implementation libs.spring.otlp
+
     testImplementation libs.spring.web.test
     testImplementation libs.spring.boot.test
     testImplementation libs.spring.restclient.test

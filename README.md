@@ -123,6 +123,34 @@ springboot-stackit-reference/
     ├── architecture.md
     └── runbook.md
 ```
+## observability stack op STACKIT
+Volledige observability stack uitgerold d.m.v. 4 Terraform modules, zie sources...
+
+```
+modules/
+│
+├── kube-prometheus-stack
+│
+├── loki
+│
+├── tempo
+│
+└── opentelemetry
+```
+Equivalenten voor wat you normailiter vindt op Azure clusters, ja ik roep maar wat (-;
+
+```
+| Azure                      | Open Source Stack |
+| -------------------------- | ----------------- |
+| Azure Monitor              | Prometheus        |
+| Azure Log Analytics        | Loki              |
+| Azure Application Insights | OpenTelemetry     |
+| Azure Distributed Tracing  | Tempo             |
+| Azure Dashboards           | Grafana           |
+| Azure Monitor Alerts       | AlertManager      |
+```
+
+
 ## GITOPS - manage applicaties met FluxCD.
 [Central idea is to show how to use GitOps](./docus/GitOps.md) (FluxCD) to manage the deployment of a microservices application on Kubernetes.
 1. How to bootstrap FluxCD in your Kubernetes cluster:

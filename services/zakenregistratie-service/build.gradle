@@ -42,6 +42,11 @@ dependencies {
     annotationProcessor libs.lombok
     runtimeOnly libs.postgresql.runtime
 
+    // observability
+    implementation libs.otlp.appender
+    implementation libs.spring.otlp
+
+
     testImplementation libs.spring.web.test
     testImplementation libs.spring.jpa.test
     testImplementation libs.spring.boot.test

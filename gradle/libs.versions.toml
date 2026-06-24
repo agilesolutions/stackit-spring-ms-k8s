@@ -21,6 +21,12 @@ flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-pg = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
 postgresql-runtime = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 
+# Observability
+spring-otlp = { module = "org.springframework.boot:spring-boot-starter-opentelemetry", version.ref = "springBoot" }
+otlp-appender = { module = "io.opentelemetry.instrumentation:opentelemetry-logback-appender-1.0", version = "2.21.0-alpha" }
+
+
+
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools", version.ref = "springBoot" }
 spring-boot-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 spring-web-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test", version.ref = "springBoot" }

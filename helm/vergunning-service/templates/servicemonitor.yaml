@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "vergunning-service.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      app: vergunning-service
+  endpoints:
+    - port: http
+      path: /actuator/prometheus

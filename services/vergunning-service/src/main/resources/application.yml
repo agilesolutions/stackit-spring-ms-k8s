@@ -18,3 +18,25 @@ server:
           keycloak:
             token-uri: http://keycloak/auth/realms/demo/protocol/openid-connect/token
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus,metrics
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  otel:
+    exporter:
+      otlp:
+        endpoint:
+          http://opentelemetry-collector.monitoring.svc.cluster.local:4318
+
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
