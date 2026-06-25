@@ -98,8 +98,7 @@ jib {
     }
 
     to {
-
-        image = "agilesolutions/vergunning-service:${version}"
+        image = "${System.getenv("STACKIT_REGISTRY")}/vergunning-service:${version}"
         // Optional: Specify credentials if using a private registry
         auth {
 
