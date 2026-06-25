@@ -61,8 +61,7 @@ resource "kubernetes_config_map" "spring_dashboard" {
 
   data = {
 
-    "springboot.json" =
-    file("${path.module}/dashboards/springboot.json")
+    "springboot.json" = file("${path.module}/dashboards/springboot.json")
 
   }
 
@@ -88,8 +87,7 @@ resource "kubernetes_config_map" "kubernetes_dashboard" {
 
   data = {
 
-    "kubernetes.json" =
-    file("${path.module}/dashboards/kubernetes.json")
+    "kubernetes.json" = file("${path.module}/dashboards/kubernetes.json")
 
   }
 
@@ -115,8 +113,7 @@ resource "kubernetes_config_map" "postgres_dashboard" {
 
   data = {
 
-    "postgres.json" =
-    file("${path.module}/dashboards/postgres.json")
+    "postgres.json" = file("${path.module}/dashboards/postgres.json")
 
   }
 

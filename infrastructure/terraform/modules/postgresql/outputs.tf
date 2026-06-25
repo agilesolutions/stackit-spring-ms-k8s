@@ -34,5 +34,3 @@ output "postgres_connection_uri" {
   sensitive   = true
   description = "The full PostgreSQL connection URI string."
 }
-
-}

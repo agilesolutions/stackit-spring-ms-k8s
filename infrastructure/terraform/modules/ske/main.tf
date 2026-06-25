@@ -1,4 +1,4 @@
-resource "stackit_ske_cluster" "this" {
+resource "stackit_ske_cluster" "overheid" {
 
   project_id = var.project_id
 
@@ -66,11 +66,11 @@ resource "stackit_ske_cluster" "this" {
 
 }
 
-resource "stackit_ske_kubeconfig" "this" {
+resource "stackit_ske_kubeconfig" "overheid" {
 
   project_id = var.project_id
 
-  cluster_name = stackit_ske_cluster.this.name
+  cluster_name = stackit_ske_cluster.overheid.name
 
   refresh = true
 

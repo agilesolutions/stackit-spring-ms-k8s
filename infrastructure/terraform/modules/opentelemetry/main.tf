@@ -4,8 +4,7 @@ resource "helm_release" "otel" {
 
   namespace = "monitoring"
 
-  repository =
-  "https://open-telemetry.github.io/opentelemetry-helm-charts"
+  repository = "https://open-telemetry.github.io/opentelemetry-helm-charts"
 
   chart = "opentelemetry-collector"
 

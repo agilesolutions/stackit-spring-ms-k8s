@@ -4,8 +4,7 @@ resource "helm_release" "loki" {
 
   namespace = var.namespace
 
-  repository =
-  "https://grafana.github.io/helm-charts"
+  repository = "https://grafana.github.io/helm-charts"
 
   chart = "loki"
 
@@ -21,8 +20,7 @@ resource "helm_release" "promtail" {
 
   namespace = var.namespace
 
-  repository =
-  "https://grafana.github.io/helm-charts"
+  repository = "https://grafana.github.io/helm-charts"
 
   chart = "promtail"
 

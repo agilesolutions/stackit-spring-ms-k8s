@@ -4,8 +4,7 @@ resource "helm_release" "tempo" {
 
   namespace = "monitoring"
 
-  repository =
-  "https://grafana.github.io/helm-charts"
+  repository = "https://grafana.github.io/helm-charts"
 
   chart = "tempo"
 

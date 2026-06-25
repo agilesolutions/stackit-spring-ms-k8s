@@ -14,28 +14,6 @@
 #
 ##############################################
 
-terraform {
-
-  required_version = ">= 1.9"
-
-  required_providers {
-
-    stackit = {
-      source  = "stackitcloud/stackit"
-      version = "~> 0.98.0" # Use the latest stable version
-    }
-
-    kubernetes = {
-      source = "hashicorp/kubernetes"
-      version = "~> 2.32"
-    }
-
-    helm = {
-      source = "hashicorp/helm"
-      version = "~> 2.14"
-    }
-  }
-}
 
 ##############################################
 # SKE CLUSTER
@@ -61,15 +39,15 @@ module "ske" {
 ##############################################
 
 provider "kubernetes" {
+# Extract host, CA, and client auth data from the kube_config
+  host = yamldecode(module.ske.kubeconfig).clusters[0].cluster.server
 
-  host                   = module.ske.host
-
-  cluster_ca_certificate = base64decode(
-    module.ske.cluster_ca_certificate
-  )
-
-  token = module.ske.token
+  cluster_ca_certificate = base64decode(yamldecode(module.ske.kubeconfig).clusters[0].cluster.certificate-authority-data)
+  client_certificate     = base64decode(yamldecode(module.ske.kubeconfig).users[0].user.client-certificate-data)
+  client_key             = base64decode(yamldecode(module.ske.kubeconfig).users[0].user.client-key-data)
 }
+
+
 
 ##############################################
 # Helm Provider
@@ -79,13 +57,12 @@ provider "helm" {
 
   kubernetes {
 
-    host                   = modules.ske.host
+    host = yamldecode(module.ske.kubeconfig).clusters[0].cluster.server
 
-    cluster_ca_certificate = base64decode(
-      module.ske.cluster_ca_certificate
-    )
+    cluster_ca_certificate = base64decode(yamldecode(module.ske.kubeconfig).clusters[0].cluster.certificate-authority-data)
+    client_certificate     = base64decode(yamldecode(module.ske.kubeconfig).users[0].user.client-certificate-data)
+    client_key             = base64decode(yamldecode(module.ske.kubeconfig).users[0].user.client-key-data)
 
-    token = module.ske.token
   }
 }
 
@@ -96,7 +73,7 @@ provider "helm" {
 
 module "postgres" {
 
-  source = "./modules/postgres"
+  source = "./modules/postgresql"
 
   project_id = var.project_id
 
@@ -126,11 +103,13 @@ module "ingress_nginx" {
 
   source = "./modules/ingress-nginx"
 
-  depends_on = [
-    module.ske
-  ]
-}
+  replica_count = 2
 
+  enable_metrics = true
+
+  enable_modsecurity = true
+
+}
 ##############################################
 # Cert Manager
 ##############################################
@@ -168,7 +147,7 @@ module "keycloak" {
 
   hostname = "keycloak.platform.example.nl"
 
-  postgres_host = module.postgres.host
+  postgres_host = module.postgres.postgres_host
 
   postgres_database = "keycloak"
 
@@ -260,19 +239,14 @@ module "grafana" {
 
   source = "./modules/grafana"
 
-  hostname =
-  "grafana.platform.example.nl"
+  hostname = "grafana.platform.example.nl"
 
-  admin_password =
-  var.grafana_admin_password
+  admin_password = var.grafana_admin_password
 
-  prometheus_url =
-  "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local"
+  prometheus_url = "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local"
 
-  loki_url =
-  "http://loki-gateway.monitoring.svc.cluster.local"
+  loki_url = "http://loki-gateway.monitoring.svc.cluster.local"
 
-  tempo_url =
-  "http://tempo.monitoring.svc.cluster.local:3100"
+  tempo_url = "http://tempo.monitoring.svc.cluster.local:3100"
 
 }

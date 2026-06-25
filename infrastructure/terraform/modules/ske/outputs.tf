@@ -1,12 +1,12 @@
 output "cluster_name" {
 
-  value = stackit_ske_cluster.this.name
+  value = stackit_ske_cluster.overheid.name
 
 }
 
 output "kubeconfig" {
 
-  value     = stackit_ske_kubeconfig.this.kube_config
+  value     = stackit_ske_kubeconfig.overheid.kube_config
 
   sensitive = true
 
@@ -14,12 +14,12 @@ output "kubeconfig" {
 
 output "egress_address_ranges" {
 
-  value = stackit_ske_cluster.this.egress_address_ranges
+  value = stackit_ske_cluster.overheid.egress_address_ranges
 
 }
 
 output "pod_address_ranges" {
 
-  value = stackit_ske_cluster.this.pod_address_ranges
+  value = stackit_ske_cluster.overheid.pod_address_ranges
 
 }

@@ -1,0 +1,51 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "panels": [
+    {
+      "id": 1,
+      "title": "Connections",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "pg_stat_database_numbackends"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Transactions/sec",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(pg_stat_database_xact_commit[5m])"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Database Size",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "pg_database_size_bytes"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Cache Hit Ratio",
+      "type": "gauge",
+      "targets": [
+        {
+          "expr": "sum(pg_stat_database_blks_hit) / (sum(pg_stat_database_blks_hit)+sum(pg_stat_database_blks_read))"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 39,
+  "title": "PostgreSQL",
+  "version": 1
+}

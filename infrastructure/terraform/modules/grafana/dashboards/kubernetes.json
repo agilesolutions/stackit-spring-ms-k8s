@@ -1,0 +1,51 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "panels": [
+    {
+      "id": 1,
+      "title": "Cluster CPU",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total[5m]))"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Cluster Memory",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes)"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Pod Restarts",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(increase(kube_pod_container_status_restarts_total[24h]))"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Deployment Availability",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "kube_deployment_status_replicas_available"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 39,
+  "title": "Kubernetes Cluster",
+  "version": 1
+}
