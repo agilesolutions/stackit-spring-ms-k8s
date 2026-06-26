@@ -101,9 +101,7 @@ jib {
         image = "${System.getenv("STACKIT_REGISTRY")}/vergunning-service:${version}"
         // Optional: Specify credentials if using a private registry
         auth {
-
             username = System.getenv("STACKIT_REGISTRY_USER")
-
             password = System.getenv("STACKIT_REGISTRY_PASSWORD")
         }
     }

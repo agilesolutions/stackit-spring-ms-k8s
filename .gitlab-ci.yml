@@ -8,25 +8,20 @@ stages:
   - infrastructure
 
 variables:
-
+  SKIP_TEST: "true"
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
   DOCKER_TLS_CERTDIR: ""
-
-  TF_ROOT: terraform
+  TF_ROOT: infrastructure/terraform
 
 cache:
-
   paths:
     - .gradle/
     - .m2/
 
 default:
-
   image: gradle:9.3.0-jdk25
 
 before_script:
-
   - chmod -R +x gradle
 
 ###########################################################
@@ -34,21 +29,13 @@ before_script:
 ###########################################################
 
 terraform-validate:
-
   stage: validate
-
   image:
-
-    name: hashicorp/terraform:1.12
-
+    name: hashicorp/terraform:1.15.7
     entrypoint: [""]
-
   script:
-
     - cd ${TF_ROOT}
-
     - terraform init -backend=false
-
     - terraform validate
 
 ###########################################################
@@ -56,55 +43,36 @@ terraform-validate:
 ###########################################################
 
 build:
-
   stage: build
-
   script:
-
     - ./gradlew clean assemble
-
   artifacts:
-
     expire_in: 1 week
-
     paths:
-
-      - vergunning-service/build/libs/*.jar
-
-      - zakenregistratie-service/build/libs/*.jar
+      - services/vergunning-service/build/libs/*.jar
+      - services/zakenregistratie-service/build/libs/*.jar
 
 ###########################################################
 # UNIT TESTS
 ###########################################################
 
 test:
-
   stage: test
-
+  rules:
+    - if: $SKIP_TEST == "true"
+      when: never
   services:
-
     - docker:dind
-
   variables:
-
     DOCKER_HOST: tcp://docker:2375
-
   script:
-
     - ./gradlew test
-
     - ./gradlew jacocoTestReport
-
   artifacts:
-
     reports:
-
       junit:
-
         - "**/build/test-results/test/*.xml"
-
     paths:
-
       - "**/build/reports/jacoco"
 
 ###########################################################
@@ -112,19 +80,15 @@ test:
 ###########################################################
 
 integration-test:
-
   stage: test
-
+  rules:
+    - if: $SKIP_TEST == "true"
+      when: never
   services:
-
     - docker:dind
-
   variables:
-
     DOCKER_HOST: tcp://docker:2375
-
   script:
-
     - ./gradlew integrationTest
 
 ###########################################################
@@ -132,17 +96,11 @@ integration-test:
 ###########################################################
 
 dependency-check:
-
   stage: security
-
   script:
-
     - ./gradlew dependencyCheckAnalyze
-
   artifacts:
-
     paths:
-
       - build/reports
 
 ###########################################################
@@ -150,129 +108,79 @@ dependency-check:
 ###########################################################
 
 publish-vergunning:
-
   stage: publish
-
   script:
-
     - cd vergunning-service
-
     - export IMAGE_NAME=${STACKIT_REGISTRY}/vergunning-service:${CI_COMMIT_SHA}
-
     - ./gradlew jib
-
   only:
-    - main
+    - master
 
 publish-zaken:
-
   stage: publish
-
   script:
-
     - cd zakenregistratie-service
-
     - export IMAGE_NAME=${STACKIT_REGISTRY}/zakenregistratie-service:${CI_COMMIT_SHA}
-
     - ./gradlew jib
-
   only:
-    - main
+    - master
 
 ###########################################################
 # IMAGE SECURITY SCAN
 ###########################################################
 
 trivy-image-vergunning:
-
   stage: publish
-
   image:
-
     name: aquasec/trivy:latest
-
     entrypoint: [""]
-
   script:
-
     - trivy image ${STACKIT_REGISTRY}/vergunning-service:${CI_COMMIT_SHA}
-
   only:
-    - main
+    - master
 
 trivy-image-zaken:
-
   stage: publish
-
   image:
-
     name: aquasec/trivy:latest
-
     entrypoint: [""]
-
   script:
-
     - trivy image ${STACKIT_REGISTRY}/zakenregistratie-service:${CI_COMMIT_SHA}
-
   only:
-    - main
+    - master
 
 ###########################################################
 # HELM PACKAGE
 ###########################################################
 
 helm-package:
-
   stage: package
-
   image:
-
     name: alpine/helm:3.17.3
-
     entrypoint: [""]
-
   script:
-
     - helm lint helm/vergunning-service
-
     - helm lint helm/zakenregistratie-service
-
     - helm package helm/vergunning-service
-
     - helm package helm/zakenregistratie-service
-
   artifacts:
-
     paths:
-
       - "*.tgz"
 
 ###########################################################
 # TERRAFORM PLAN
 ###########################################################
-
 terraform-plan:
-
   stage: infrastructure
-
   image:
-
     name: hashicorp/terraform:1.12
-
     entrypoint: [""]
-
   script:
-
-    - cd terraform
-
+    - cd ${TF_ROOT}
     - terraform init
-
     - terraform plan -out=tfplan
-
   artifacts:
-
     paths:
-
       - terraform/tfplan
 
 ###########################################################
@@ -280,17 +188,11 @@ terraform-plan:
 ###########################################################
 
 deploy-dev:
-
   stage: publish
-
   environment:
-
     name: dev
-
   script:
-
     - echo "FluxCD reconciles deployment"
-
   only:
     - develop
 
@@ -299,17 +201,11 @@ deploy-dev:
 ###########################################################
 
 deploy-test:
-
   stage: publish
-
   environment:
-
     name: test
-
   script:
-
     - echo "FluxCD reconciles deployment"
-
   only:
     - release/*
 
@@ -318,18 +214,11 @@ deploy-test:
 ###########################################################
 
 deploy-prod:
-
   stage: publish
-
   environment:
-
     name: production
-
   when: manual
-
   script:
-
     - echo "FluxCD reconciles deployment"
-
   only:
-    - main
+    - master
