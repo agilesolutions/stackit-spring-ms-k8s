@@ -14,14 +14,16 @@ variables:
   TF_ROOT: infrastructure/terraform
 
 cache:
+  key: "$CI_COMMIT_REF_SLUG"
   paths:
-    - .gradle/
-    - .m2/
+    - .gradle/wrapper
+    - .gradle/caches
 
 default:
   image: gradle:9.3.0-jdk25
 
 before_script:
+  - export DOCKER_HOST="tcp://docker:2375" # Needed for Testcontainers in CI
   - chmod -R +x gradle
 
 ###########################################################
@@ -45,7 +47,8 @@ terraform-validate:
 build:
   stage: build
   script:
-    - ./gradlew clean assemble
+    - gradle clean assemble
+    - echo "Build."
   artifacts:
     expire_in: 1 week
     paths:
@@ -66,8 +69,8 @@ test:
   variables:
     DOCKER_HOST: tcp://docker:2375
   script:
-    - ./gradlew test
-    - ./gradlew jacocoTestReport
+    - gradle test
+    - gradle jacocoTestReport
   artifacts:
     reports:
       junit:
@@ -89,7 +92,7 @@ integration-test:
   variables:
     DOCKER_HOST: tcp://docker:2375
   script:
-    - ./gradlew integrationTest
+    - gradle integrationTest
 
 ###########################################################
 # OWASP
@@ -98,7 +101,7 @@ integration-test:
 dependency-check:
   stage: security
   script:
-    - ./gradlew dependencyCheckAnalyze
+    - gradle dependencyCheckAnalyze
   artifacts:
     paths:
       - build/reports
@@ -112,7 +115,7 @@ publish-vergunning:
   script:
     - cd vergunning-service
     - export IMAGE_NAME=${STACKIT_REGISTRY}/vergunning-service:${CI_COMMIT_SHA}
-    - ./gradlew jib
+    - gradle jib
   only:
     - master
 
@@ -121,7 +124,7 @@ publish-zaken:
   script:
     - cd zakenregistratie-service
     - export IMAGE_NAME=${STACKIT_REGISTRY}/zakenregistratie-service:${CI_COMMIT_SHA}
-    - ./gradlew jib
+    - gradle jib
   only:
     - master
 
