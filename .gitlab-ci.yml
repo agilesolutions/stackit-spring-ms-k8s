@@ -12,9 +12,6 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   DOCKER_TLS_CERTDIR: ""
   TF_ROOT: infrastructure/terraform
-  STACKIT_REGISTRY: $STACKIT_REGISTRY
-  STACKIT_REGISTRY_USER: $STACKIT_REGISTRY_USER
-  STACKIT_REGISTRY_PASSWORD: $STACKIT_REGISTRY_PASSWORD
 
 cache:
   key: "$CI_COMMIT_REF_SLUG"
@@ -104,8 +101,10 @@ integration-test:
 publish-vergunning:
   stage: publish
   script:
+    - export STACKIT_REGISTRY=$STACKIT_REGISTRY
+    - export STACKIT_REGISTRY_USER=$STACKIT_REGISTRY_USER
+    - export STACKIT_REGISTRY_PASSWORD=$STACKIT_REGISTRY_PASSWORD
     - cd services/vergunning-service
-    - export IMAGE_NAME=${STACKIT_REGISTRY}/vergunning-service:${CI_COMMIT_SHA}
     - gradle jib
   only:
     - master
@@ -113,6 +112,9 @@ publish-vergunning:
 publish-zaken:
   stage: publish
   script:
+    - export STACKIT_REGISTRY=$STACKIT_REGISTRY
+    - export STACKIT_REGISTRY_USER=$STACKIT_REGISTRY_USER
+    - export STACKIT_REGISTRY_PASSWORD=$STACKIT_REGISTRY_PASSWORD
     - cd services/zakenregistratie-service
     - export IMAGE_NAME=${STACKIT_REGISTRY}/zakenregistratie-service:${CI_COMMIT_SHA}
     - gradle jib
