@@ -15,11 +15,9 @@ ingress:
   host: vergunning.platform.example.nl
 
 resources:
-
   requests:
     cpu: 250m
     memory: 512Mi
-
   limits:
     cpu: "1"
     memory: 1Gi
@@ -38,5 +36,5 @@ postgres:
   host: postgres
   database: vergunningdb
 
-  keycloak:
-    issuerUri: http://keycloak:8080/realms/overheid
+keycloak:
+  issuerUri: http://keycloak:8080/realms/overheid

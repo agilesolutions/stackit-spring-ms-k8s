@@ -25,14 +25,12 @@ spec:
             - secretRef:
                 name: {{ include "vergunning-service.fullname" . }}
           resources:
-  {{ toYaml .Values.resources | indent 12 }}
-
-livenessProbe:
-  httpGet:
-    path: /actuator/health/liveness
-    port: 8080
-
-readinessProbe:
-  httpGet:
-    path: /actuator/health/readiness
-    port: 8080
+            {{- toYaml .Values.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
