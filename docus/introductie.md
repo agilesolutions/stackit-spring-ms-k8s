@@ -40,6 +40,8 @@ Robert Rong
 
 LinkedIn: https://www.linkedin.com/in/robert-rong-agile-solutions/
 
+github reference project: https://github.com/agilesolutions/stackit-spring-ms-k8s
+
 Software Architect | Platform Engineer | Cloud Native Consultant
 
 Spring Boot • Kubernetes • Terraform • GitOps • Azure • STACKIT
