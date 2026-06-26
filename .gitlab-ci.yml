@@ -27,7 +27,7 @@ default:
 
 before_script:
 
-  - chmod +x .gradle
+  - chmod -R +x gradle
 
 ###########################################################
 # TERRAFORM
