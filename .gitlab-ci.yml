@@ -46,10 +46,12 @@ terraform-validate:
 
 build:
   stage: build
-  script:
+  before_script:
     - export STACKIT_REGISTRY=$STACKIT_REGISTRY
     - export STACKIT_REGISTRY_USER=$STACKIT_REGISTRY_USER
     - export STACKIT_REGISTRY_PASSWORD=$STACKIT_REGISTRY_PASSWORD
+  script:
+    - echo "SETTINGS DEFINED VARIABLE STACKIT_REGISTRY is ${STACKIT_REGISTRY}"
     - gradle clean assemble
     - echo "Build."
   artifacts:
@@ -71,10 +73,11 @@ test:
     - docker:dind
   variables:
     DOCKER_HOST: tcp://docker:2375
-  script:
+  before_script:
     - export STACKIT_REGISTRY=$STACKIT_REGISTRY
     - export STACKIT_REGISTRY_USER=$STACKIT_REGISTRY_USER
     - export STACKIT_REGISTRY_PASSWORD=$STACKIT_REGISTRY_PASSWORD
+  script:
     - gradle test
     - gradle jacocoTestReport
   artifacts:
@@ -97,10 +100,11 @@ integration-test:
     - docker:dind
   variables:
     DOCKER_HOST: tcp://docker:2375
-  script:
+  before_script:
     - export STACKIT_REGISTRY=$STACKIT_REGISTRY
     - export STACKIT_REGISTRY_USER=$STACKIT_REGISTRY_USER
     - export STACKIT_REGISTRY_PASSWORD=$STACKIT_REGISTRY_PASSWORD
+  script:
     - gradle integrationTest
 
 ###########################################################
@@ -109,10 +113,11 @@ integration-test:
 
 publish-vergunning:
   stage: publish
-  script:
+  before_script:
     - export STACKIT_REGISTRY=$STACKIT_REGISTRY
     - export STACKIT_REGISTRY_USER=$STACKIT_REGISTRY_USER
     - export STACKIT_REGISTRY_PASSWORD=$STACKIT_REGISTRY_PASSWORD
+  script:
     - cd services/vergunning-service
     - gradle jib
   only:
@@ -120,10 +125,11 @@ publish-vergunning:
 
 publish-zaken:
   stage: publish
-  script:
+  before_script:
     - export STACKIT_REGISTRY=$STACKIT_REGISTRY
     - export STACKIT_REGISTRY_USER=$STACKIT_REGISTRY_USER
     - export STACKIT_REGISTRY_PASSWORD=$STACKIT_REGISTRY_PASSWORD
+  script:
     - cd services/zakenregistratie-service
     - export IMAGE_NAME=${STACKIT_REGISTRY}/zakenregistratie-service:${CI_COMMIT_SHA}
     - gradle jib
