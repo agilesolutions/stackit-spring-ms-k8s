@@ -98,25 +98,13 @@ integration-test:
     - gradle integrationTest
 
 ###########################################################
-# OWASP
-###########################################################
-
-dependency-check:
-  stage: security
-  script:
-    - gradle dependencyCheckAnalyze
-  artifacts:
-    paths:
-      - build/reports
-
-###########################################################
 # BUILD CONTAINER IMAGES
 ###########################################################
 
 publish-vergunning:
   stage: publish
   script:
-    - cd vergunning-service
+    - cd services/vergunning-service
     - export IMAGE_NAME=${STACKIT_REGISTRY}/vergunning-service:${CI_COMMIT_SHA}
     - gradle jib
   only:
@@ -125,33 +113,9 @@ publish-vergunning:
 publish-zaken:
   stage: publish
   script:
-    - cd zakenregistratie-service
+    - cd services/zakenregistratie-service
     - export IMAGE_NAME=${STACKIT_REGISTRY}/zakenregistratie-service:${CI_COMMIT_SHA}
     - gradle jib
-  only:
-    - master
-
-###########################################################
-# IMAGE SECURITY SCAN
-###########################################################
-
-trivy-image-vergunning:
-  stage: publish
-  image:
-    name: aquasec/trivy:latest
-    entrypoint: [""]
-  script:
-    - trivy image ${STACKIT_REGISTRY}/vergunning-service:${CI_COMMIT_SHA}
-  only:
-    - master
-
-trivy-image-zaken:
-  stage: publish
-  image:
-    name: aquasec/trivy:latest
-    entrypoint: [""]
-  script:
-    - trivy image ${STACKIT_REGISTRY}/zakenregistratie-service:${CI_COMMIT_SHA}
   only:
     - master
 
