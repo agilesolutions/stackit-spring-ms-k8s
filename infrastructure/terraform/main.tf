@@ -13,7 +13,10 @@
 # - Prometheus/Grafana
 #
 ##############################################
-
+provider "stackit" {
+  service_account_key_path = "${path.module}/sa-key.json"
+  default_region           = var.region
+}
 
 ##############################################
 # SKE CLUSTER
@@ -25,7 +28,7 @@ module "ske" {
 
   project_id = var.project_id
 
-  cluster_name = "government-platform"
+  cluster_name = var.cluster_name
 
   kubernetes_version = "1.30"
 
