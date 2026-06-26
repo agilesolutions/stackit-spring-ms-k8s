@@ -93,6 +93,10 @@ module "postgres" {
 
   storage_size = 100
 
+  depends_on = [
+    module.ske
+  ]
+
 }
 
 ##############################################
@@ -109,6 +113,10 @@ module "ingress_nginx" {
 
   enable_modsecurity = true
 
+  depends_on = [
+    module.ske
+  ]
+
 }
 ##############################################
 # Cert Manager
@@ -119,6 +127,10 @@ module "cert_manager" {
   source = "./modules/cert-manager"
 
   email = "robert.rong@agile-solutions.ch"
+
+  depends_on = [
+    module.ske
+  ]
 
 }
 ##############################################
@@ -134,6 +146,10 @@ module "external_secrets" {
   vault_path = "secret"
 
   vault_role = "external-secrets"
+
+  depends_on = [
+    module.ske
+  ]
 
 }
 ##############################################
@@ -159,6 +175,10 @@ module "keycloak" {
 
   keycloak_admin_password = var.keycloak_admin_password
 
+  depends_on = [
+    module.ske
+  ]
+
 }
 
 ##############################################
@@ -176,6 +196,10 @@ module "fluxcd" {
   git_path = "clusters/dev"
 
   github_token = var.github_token
+
+  depends_on = [
+    module.ske
+  ]
 
 }
 ##############################################
@@ -228,6 +252,7 @@ module "otel_collector" {
   depends_on = [
     module.ske
   ]
+
 }
 
 
@@ -248,5 +273,9 @@ module "grafana" {
   loki_url = "http://loki-gateway.monitoring.svc.cluster.local"
 
   tempo_url = "http://tempo.monitoring.svc.cluster.local:3100"
+
+  depends_on = [
+    module.ske
+  ]
 
 }

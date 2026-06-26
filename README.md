@@ -35,7 +35,7 @@ Het uitgangspunt is het migreren van een bestaand Azure Spring Cloud referentie 
 
 Production-grade cloud-native reference architecture:
 
-- Spring Boot 4/ Spring Framework 6 / Java 24
+- Spring Boot 4/ Spring Framework 6 / Java 25
 - Gradle multi-module
 - OIDC (Keycloak-ready)
 - Kubernetes (STACKIT SKE)
@@ -137,7 +137,7 @@ modules/
 │
 └── opentelemetry
 ```
-Equivalenten voor wat you normailiter vindt op Azure clusters, ja ik roep maar wat (-;
+Equivalenten voor wat je normaliter aantreft in Azure clusters, ja ik roep maar wat (-;
 
 ```
 | Azure Monitor Stack  | STACKIT/Kubernetes Stack |
