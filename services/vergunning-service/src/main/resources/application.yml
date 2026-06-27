@@ -4,7 +4,7 @@ server:
 
 
   application:
-    name: vergunning-service
+    name: ${OTEL_SERVICE_NAME}
 
   security:
     oauth2:
@@ -16,27 +16,27 @@ server:
             authorization-grant-type: client_credentials
         provider:
           keycloak:
-            token-uri: http://keycloak/auth/realms/demo/protocol/openid-connect/token
+            token-uri: ${KEYCLOAK_TOKEN_URI}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,prometheus,metrics
-  prometheus:
+  otlp:
     metrics:
       export:
-        enabled: true
+        url: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/traces
+    logging:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs
+
+management:
   tracing:
     sampling:
       probability: 1.0
-  otel:
-    exporter:
-      otlp:
-        endpoint:
-          http://opentelemetry-collector.monitoring.svc.cluster.local:4318
-
 
 logging:
-  pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+  level:
+    org.springframework.boot.actuator.autoconfigure.opentelemetry: DEBUG

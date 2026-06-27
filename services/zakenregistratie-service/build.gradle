@@ -48,6 +48,7 @@ dependencies {
     implementation libs.spring.otlp
 
 
+    testImplementation libs.spring.otlp.test
     testImplementation libs.spring.web.test
     testImplementation libs.spring.jpa.test
     testImplementation libs.spring.boot.test

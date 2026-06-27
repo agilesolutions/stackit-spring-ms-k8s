@@ -38,3 +38,10 @@ postgres:
 
 keycloak:
   issuerUri: http://keycloak:8080/realms/overheid
+  tokenUri: http://keycloak:8080/auth/realms/demo/protocol/openid-connect/token
+
+otel:
+  serviceName: vergunning-service
+  exporterEndpoint: http://alloy.monitoring.svc.cluster.local:4318
+  exporterProtocol: http/protobuf
+  resourceAttributes: service.namespace=government,environment=dev

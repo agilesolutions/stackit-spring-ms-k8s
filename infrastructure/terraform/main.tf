@@ -258,7 +258,6 @@ module "otel_collector" {
 
 }
 
-
 ##############################################
 # Grafana
 ##############################################
@@ -280,5 +279,23 @@ module "grafana" {
   depends_on = [
     module.ske
   ]
+
+}
+
+##############################################
+# Grafana Alloy : Grafana’s officiele, open-source OpenTelemetry Collector
+##############################################
+
+module "alloy" {
+
+  source = "./modules/alloy"
+
+  namespace = "monitoring"
+
+  loki_url = "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
+
+  tempo_endpoint = "tempo.monitoring.svc.cluster.local:4317"
+
+  prometheus_remote_write_url = "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local/api/v1/write"
 
 }

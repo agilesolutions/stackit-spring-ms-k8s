@@ -126,8 +126,28 @@ springboot-stackit-reference/
 ## observability stack op STACKIT
 Volledige observability stack uitgerold d.m.v. 4 Terraform modules, zie sources...
 
+- **The Collector Layer:** Grafana Alloy acts as Grafana’s official, open-source OpenTelemetry Collector distribution. It hosts the otelcol.receiver.otlp block, which actively listens for gRPC (default port 4317) or HTTP/Protobuf (default port 4318) streams coming out of Spring Boot.
+- **The Storage Layer:** Once Alloy acts as the single reception front-door, its internal pipeline splits the unified OTLP telemetry data and routes each signal to its respective specialized backend database in the LGTM stack:
+    - Loki (for logs)
+    - Grafana (for visualization)
+    - Tempo (for traces)
+    - Mimir or Prometheus (for metrics)
+
 ```
+[ Spring Boot 4 App ] 
+         │ (Unified OTLP stream over ports 4317/4318)
+         ▼
+ ┌────────────────────────────────────────────────────────┐
+ │ Grafana Alloy (`otelcol.receiver.otlp` component)     │ <── Absorbs all data
+ └───────────────────┬──────────────┬──────────────┬──────┘
+                     │ (Metrics)    │ (Traces)     │ (Logs)
+                     ▼              ▼              ▼
+                 [ Mimir ]      [ Tempo ]      [ Loki ]
+
+
 modules/
+│
+├── Grafana Alloy (OTLP Ingestion Front-Door)
 │
 ├── kube-prometheus-stack
 │
@@ -137,7 +157,20 @@ modules/
 │
 └── opentelemetry
 ```
-Equivalenten voor wat je normaliter aantreft in Azure clusters, ja ik roep maar wat (-;
+### SpringBoot 4 full traceability met OpenTelemetry
+SpringBoot OTLP support:
+1. OpenTelemetry API: Bestaande MicroMeter implementatie exporteert alle tracing data via OTLP protocol naar alle compatible backends. Deze Use Case demonstreert LGTM stack van Grafana labs - open-source observability stack:
+   - Loki — for logs (log aggregation system)
+   - Grafana — for visualization and dashboards
+   - Tempo — for traces (distributed tracing backend)
+   - Mimir — for metrics (long-term storage for Prometheus metrics)
+   - Gehele stack wordt op SKE geprovisioneerd m.b.v Terraform Helm provider.
+2. Micrometer tracing bridge to OpenTelemetry: integreer Micrometer observaties en metrics met OpenTelemetry traces en spans.
+3. OTLP exporters for metrics and traces: exporteer alle metrics, tracing and logging data naar een enkel OTLP end-point.
+
+
+## Azure vs STACKIT geprovisioneerde componenten.
+Equivalenten voor wat je normaliter aantreft in Azure clusters, nog nader te bepalen... 
 
 ```
 | Azure Monitor Stack  | STACKIT/Kubernetes Stack |
