@@ -2,7 +2,6 @@ stages:
   - validate
   - build
   - test
-  - security
   - package
   - publish
   - infrastructure
@@ -169,7 +168,8 @@ terraform-plan:
   artifacts:
     paths:
       - terraform/tfplan
-
+  only:
+    - release/*
 ###########################################################
 # DEV DEPLOYMENT
 ###########################################################
@@ -208,4 +208,4 @@ deploy-prod:
   script:
     - echo "FluxCD reconciles deployment"
   only:
-    - master
+    - release/*
