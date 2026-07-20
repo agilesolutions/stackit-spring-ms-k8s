@@ -1,0 +1,42 @@
+
+server:
+  port: 8080
+
+
+  application:
+    name: ${OTEL_SERVICE_NAME}
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: vergunning-service
+            client-secret: ${CLIENT_SECRET}
+            authorization-grant-type: client_credentials
+        provider:
+          keycloak:
+            token-uri: ${KEYCLOAK_TOKEN_URI}
+
+  otlp:
+    metrics:
+      export:
+        url: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/traces
+    logging:
+      export:
+        otlp:
+          endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  level:
+    org.springframework.boot.actuator.autoconfigure.opentelemetry: DEBUG

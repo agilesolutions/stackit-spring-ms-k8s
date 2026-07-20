@@ -1,0 +1,36 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: zakenregistratie-service
+  namespace: services
+  labels:
+    app.kubernetes.io/name: zakenregistratie-service
+    app.kubernetes.io/component: "backend"
+
+spec:
+  scaleTargetRef:
+    name: zakenregistratie-service
+
+  minReplicaCount: 1
+  maxReplicaCount: 10
+
+# Pull prometheus query endpoint coordinates from terraform output...
+  triggers:
+    - type: prometheus
+      metadata:
+        serverAddress: https://<STACKIT-PROMETHEUS-QUERY-ENDPOINT>
+
+        query: |
+          sum(
+            rate(
+              http_server_requests_seconds_count{
+                application="zakenregistratie-service",
+                uri="/api/v1/zaken/"
+              }[1m]
+            )
+          )
+
+        threshold: "5"
+
+      authenticationRef:
+        name: stackit-observability

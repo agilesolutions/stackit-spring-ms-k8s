@@ -1,0 +1,52 @@
+
+### gradle build files
+**/.gradle/
+#**/gradle/
+**/build/
+#gradlew
+#gradlew.bat
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# STACKIT Service Account Keys
+sa-key.json
+*.pem
+
+# Local STACKIT CLI configurations
+.stackit/
+
+# Local .terraform directories
+**/.terraform/*
+**/.terraform**
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Local override files
+#*_override.tf
+#*_override.tf.json
+#override.tf
+#override.tf.json
+
+# Crash log files
+crash.log

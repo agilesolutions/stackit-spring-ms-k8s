@@ -1,0 +1,47 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/agilesolutions/vergunning-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: true
+  className: nginx
+  host: vergunning.platform.example.nl
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 1Gi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  cpu: 70
+
+config:
+  SPRING_PROFILES_ACTIVE: kubernetes
+  LOG_LEVEL: INFO
+
+postgres:
+  host: postgres
+  database: vergunningdb
+
+keycloak:
+  issuerUri: http://keycloak:8080/realms/overheid
+  tokenUri: http://keycloak:8080/auth/realms/demo/protocol/openid-connect/token
+
+otel:
+  serviceName: vergunning-service
+  exporterEndpoint: http://alloy.monitoring.svc.cluster.local:4318
+  exporterProtocol: http/protobuf
+  resourceAttributes: service.namespace=government,environment=dev

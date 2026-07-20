@@ -1,0 +1,15 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: stackit-observability
+  namespace: applications
+
+spec:
+  secretTargetRef:
+    - parameter: username
+      name: stackit-observability-keda
+      key: username
+
+    - parameter: password
+      name: stackit-observability-keda
+      key: password

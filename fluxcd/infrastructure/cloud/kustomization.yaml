@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - sources/cert-manager-helmrepository.yaml
+  - sources/keda-helmrepository.yaml
+  - sources/keycloak-helmrepository.yaml
+  - sources/treaf-helmrepository.yaml
+  - sources/external-secrets-helmrepository.yaml
+  - cert-manager/kustomization.yaml
+  - keycloak/kustomization.yaml
+  - keda/kustomization.yaml
+  - traefik/kustomization.yaml
+  - external-secrets/kustomization.yaml
