@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./fluxcd/apps
+  path: ./cluster/apps
   prune: true
   wait: true
   timeout: 10m
