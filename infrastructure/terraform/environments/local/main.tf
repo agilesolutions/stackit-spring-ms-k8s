@@ -1,14 +1,13 @@
 ##############################################
 # Grafana Alloy : Grafana’s officiele, open-source OpenTelemetry Collector + all backends and grafana
 ##############################################
-module "alloy" {
-  source = "../../modules/alloy"
-  namespace = "monitoring"
-  loki_url = var.loki_url
-  tempo_endpoint = var.tempo_endpoint
-  prometheus_remote_write_url = var.prometheus_remote_write_url
-
-}
+#module "alloy" {
+#  source = "../../modules/alloy"
+#  namespace = "monitoring"
+#  loki_url = var.loki_url
+#  tempo_endpoint = var.tempo_endpoint
+#  prometheus_remote_write_url = var.prometheus_remote_write_url
+#}
 
 ##############################################
 # FluxCD

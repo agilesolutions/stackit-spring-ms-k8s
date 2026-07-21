@@ -53,5 +53,5 @@ provider "helm" {
 provider "github" {
   owner = "agilesolutions"
   base_url = "https://github.com"
-  token = "xxx"
+  token = var.github_token
 }

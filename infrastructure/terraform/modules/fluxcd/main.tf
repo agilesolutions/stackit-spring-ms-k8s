@@ -54,13 +54,14 @@ resource "github_repository_deploy_key" "flux" {
 # - image-reflector-controller
 # - image-automation-controller
 resource "flux_bootstrap_git" "this" {
-  path = "./fluxcd/bootstrap/local"
-  namespace = var.flux_namespace
-  version = var.flux_version
+  path = ""
+  namespace = "flux-system"
+  version = "v2.9.0"
   interval = var.flux_interval
   network_policy = var.network_policy
   watch_all_namespaces = var.watch_all_namespaces
   components_extra = var.flux_components_extra
+  log_level = "debug"
 
   depends_on = [
     github_repository_deploy_key.flux
