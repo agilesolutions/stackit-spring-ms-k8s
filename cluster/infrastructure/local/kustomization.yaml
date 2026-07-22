@@ -4,7 +4,7 @@ resources:
   - sources/cert-manager-helmrepository.yaml
   - sources/keda-helmrepository.yaml
   - sources/keycloak-helmrepository.yaml
-  - sources/treaf-helmrepository.yaml
+  - sources/traefik-helmrepository.yaml
   - sources/external-secrets-helmrepository.yaml
   - cert-manager/kustomization.yaml
   - keycloak/kustomization.yaml
