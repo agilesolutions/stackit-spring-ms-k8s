@@ -8,9 +8,7 @@ metadata:
     app.kubernetes.io/part-of: platform
 spec:
   interval: 15m
-
   releaseName: external-secrets
-
   chart:
     spec:
       chart: external-secrets
@@ -20,53 +18,37 @@ spec:
         name: external-secrets
         namespace: flux-system
       interval: 1h
-
   install:
     createNamespace: true
     remediation:
       retries: 3
-
   upgrade:
     remediation:
       retries: 3
       strategy: rollback
-
   values:
     installCRDs: true
-
     replicaCount: 2
-
-    webhook:
-      replicaCount: 2
-
-    certController:
-      replicaCount: 2
-
     resources:
       requests:
         cpu: 100m
         memory: 128Mi
-
       limits:
         cpu: 500m
         memory: 512Mi
-
     webhook:
       resources:
         requests:
           cpu: 100m
           memory: 128Mi
-
         limits:
           cpu: 500m
           memory: 512Mi
-
     certController:
       resources:
         requests:
           cpu: 100m
           memory: 128Mi
-
         limits:
           cpu: 500m
           memory: 512Mi
