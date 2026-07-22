@@ -6,8 +6,8 @@ resources:
   - sources/keycloak-helmrepository.yaml
   - sources/traefik-helmrepository.yaml
   - sources/external-secrets-helmrepository.yaml
-  - cert-manager/kustomization.yaml
-  - keycloak/kustomization.yaml
-  - keda/kustomization.yaml
-  - traefik/kustomization.yaml
-  - external-secrets/kustomization.yaml
+  - cert-manager
+  - keycloak
+  - keda
+  - traefik
+  - external-secrets
