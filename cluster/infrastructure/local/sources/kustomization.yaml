@@ -5,5 +5,4 @@ resources:
   - cert-manager-helmrepository.yaml
   - external-secrets-helmrepository.yaml
   - keda-helmrepository.yaml
-  - keycloak-helmrepository.yaml
   - traefik-helmrepository.yaml

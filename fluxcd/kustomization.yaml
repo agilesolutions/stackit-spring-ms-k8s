@@ -4,3 +4,4 @@ resources:
   - apps.yaml
   - image-update-automation.yaml
   - infrastructure.yaml
+  - oidc.yaml
