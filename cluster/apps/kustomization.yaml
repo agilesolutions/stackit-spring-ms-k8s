@@ -1,9 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - vergunning-service/helmrelease.yaml
-  - zakenregistratie-service/helmrelease.yaml
-  - zakenregistratie-service/keda/scaled-object.yaml
-  - zakenregistratie-service/keda/secret.yaml
-  - zakenregistratie-service/keda/triggered-authentication.yaml
+  - vergunning-service
+  - zakenregistratie-service
   - services-namespace.yaml
