@@ -31,5 +31,5 @@ spec:
       branch: main
 
   update:
-    path: ./fluxcd/apps
+    path: ./cluster/apps
     strategy: Setters
