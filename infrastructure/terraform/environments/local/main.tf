@@ -34,7 +34,7 @@ provider "flux" {
     branch = "master"
     ssh = {
       username    = "git"
-      # FIX: Grabs the key generated inside the module via its output parameter
+      # Grabs the key generated inside the module via its output parameter
       private_key = module.flux.private_key_pem
     }
   }

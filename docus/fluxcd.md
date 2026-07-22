@@ -23,7 +23,7 @@ gradle release
 ```
 3. Bootstrap FluxCD in your Kubernetes cluster:
 ```
-flux bootstrap github --owner=agilesolutions --repository=stackit-spring-ms-k8s --branch=master --path=fluxCD --personal
+flux bootstrap github --owner=agilesolutions --repository=stackit-spring-ms-k8s --branch=master --path=fluxcd --components-extra=image-reflector-controller,image-automation-controller --personal
 ```
 5. Monitor the deployment status using FluxCD and kubectl:
 ```bash
