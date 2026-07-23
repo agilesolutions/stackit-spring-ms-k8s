@@ -39,11 +39,29 @@ spec:
                 name: {{ include "zakenregistratie-service.fullname" . }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          # 1. Startup Probe: Adjusted for resource-constrained local dev environments
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 15  # Wait 15 seconds before sending the very first check
+            timeoutSeconds: 120        # CRITICAL: Allow up to 60 seconds for Tomcat to respond
+            periodSeconds: 10        # Check every 10 seconds
+            failureThreshold: 20     # (20 * 10s) + 15s = Gives the app up to 215 seconds to boot
+            successThreshold: 1
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
+            timeoutSeconds: 3
+            periodSeconds: 15
+            failureThreshold: 3
+            successThreshold: 1
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
+            timeoutSeconds: 3
+            periodSeconds: 15
+            failureThreshold: 3
+            successThreshold: 1
