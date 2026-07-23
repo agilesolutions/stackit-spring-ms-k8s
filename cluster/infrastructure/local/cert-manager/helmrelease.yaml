@@ -32,13 +32,13 @@ spec:
       enabled: true
     replicaCount: 1
     prometheus:
-      enabled: true
+      enabled: false
     startupapicheck:
       enabled: true
     webhook:
-      replicaCount: 1
+      replicaCount: 0
     cainjector:
-      replicaCount: 1
+      replicaCount: 0
     resources:
       requests:
         cpu: 100m
