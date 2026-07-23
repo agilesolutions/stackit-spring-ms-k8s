@@ -20,8 +20,8 @@ spec:
                 name: vergunning-service
                 port:
                   number: 8080
-  tls:
-    - secretName: vergunning-service-tls
-      hosts:
-        - {{ .Values.ingress.host }}
+#  tls:
+#    - secretName: vergunning-service-tls
+#      hosts:
+#        - {{ .Values.ingress.host }}
   {{- end }}
