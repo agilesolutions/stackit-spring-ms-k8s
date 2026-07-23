@@ -29,6 +29,11 @@ spec:
       retries: 3
       strategy: rollback
   values:
+    controller:
+      containerSecurityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
     crds:
       enabled: true
     prometheus:
