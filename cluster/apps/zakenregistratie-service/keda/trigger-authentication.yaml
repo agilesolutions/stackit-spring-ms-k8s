@@ -2,7 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
   name: stackit-observability
-  namespace: applications
+  namespace: services
 
 spec:
   secretTargetRef:
