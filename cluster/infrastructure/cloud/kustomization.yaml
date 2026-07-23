@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - sources
   - cert-manager
-  - keycloak
   - keda
   - traefik
   - external-secrets

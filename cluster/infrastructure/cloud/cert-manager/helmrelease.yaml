@@ -3,12 +3,8 @@ kind: HelmRelease
 metadata:
   name: cert-manager
   namespace: cert-manager
-  labels:
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/part-of: platform
 spec:
-  interval: 15m
-  releaseName: cert-manager
+  interval: 30m
   chart:
     spec:
       chart: cert-manager
@@ -17,24 +13,32 @@ spec:
         kind: HelmRepository
         name: cert-manager
         namespace: flux-system
-      interval: 1h
   install:
-    createNamespace: true
-    crds: Create
     remediation:
       retries: 3
+      remediateLastFailure: true
+    createNamespace: true
   upgrade:
-    crds: CreateReplace
     remediation:
       retries: 3
       strategy: rollback
   values:
+    controller:
+      containerSecurityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
     crds:
       enabled: true
+    replicaCount: 1
     prometheus:
+      enabled: false
+    startupapicheck:
       enabled: true
     webhook:
-      timeoutSeconds: 30
+      replicaCount: 0
+    cainjector:
+      replicaCount: 0
     resources:
       requests:
         cpu: 100m
