@@ -4,7 +4,7 @@ metadata:
   name: {{ include "vergunning-service.fullname" . }}
   labels:
     app.kubernetes.io/name: {{ include "vergunning-service.fullname" . }}
-    app.kubernetes.io/component: "frontend"
+    app.kubernetes.io/component: frontend
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "vergunning-service.fullname" . }}
-        app.kubernetes.io/component: "frontend"
+        app.kubernetes.io/component: frontend
     spec:
       serviceAccountName: {{ include "vergunning-service.fullname" . }}
       topologySpreadConstraints:
@@ -24,7 +24,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: {{ include "vergunning-service.fullname" . }}
-              app.kubernetes.io/component: "frontend"
+              app.kubernetes.io/component: frontend
       containers:
         - name: {{ include "vergunning-service.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

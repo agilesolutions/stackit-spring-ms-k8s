@@ -4,7 +4,7 @@ metadata:
   name: {{ include "zakenregistratie-service.fullname" . }}
   labels:
     app.kubernetes.io/name: {{ include "zakenregistratie-service.fullname" . }}
-    app.kubernetes.io/component: "backend"
+    app.kubernetes.io/component: backend
 
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -15,7 +15,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "zakenregistratie-service.fullname" . }}
-        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/component: backend
     spec:
       serviceAccountName: {{ include "zakenregistratie-service.fullname" . }}
       topologySpreadConstraints:
@@ -25,7 +25,7 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: {{ include "zakenregistratie-service.fullname" . }}
-              app.kubernetes.io/component: "backend"
+              app.kubernetes.io/component: backend
       containers:
         - name: {{ include "zakenregistratie-service.fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
