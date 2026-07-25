@@ -2,10 +2,29 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: default-deny
+  name: allow-dns-ingress
   namespace: services
 spec:
   podSelector: {}
   policyTypes:
     - Ingress
     - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-egress
+  namespace: services # Alle services uitgaand DNS-verkeer (Egress) naar de CoreDNS-pods in de `kube-system` namespace toestaan
+spec:
+  podSelector: {} # {} selecteert ALLE pods in deze namespace
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - port: 53
+          protocol: UDP
+        - port: 53

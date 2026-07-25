@@ -4,3 +4,8 @@ resources:
   - service-namespace.yaml
   - resource-quota.yaml
   - limit-range.yaml
+  - default-policy.yaml
+  - frontend-ingress-policy.yaml
+  - frontend-egress-policy.yaml
+  - backend-ingress-policy.yaml
+  - backend-egress-policy.yaml
