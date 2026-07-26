@@ -3,7 +3,6 @@
 Deze pagina bevat praktische richtlijnen voor het configureren van **CPU Requests**, **CPU Limits**, **Memory Requests** en **Memory Limits** voor Spring Boot applicaties die draaien op Kubernetes.
 
 De waarden zijn bedoeld als **uitgangspunt** voor Java 21+/25, Spring Boot 3.x/4.x, Actuator, Micrometer en REST API's. Na deployment dienen deze instellingen geoptimaliseerd te worden op basis van daadwerkelijke metingen met bijvoorbeeld **Prometheus**, **Grafana** of **Vertical Pod Autoscaler (VPA)**.
----
 
 ### Aanbevolen Resource Instellingen voor Spring Boot Services
 
