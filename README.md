@@ -23,13 +23,13 @@ Het uitgangspunt is het migreren van een bestaand Azure Spring Cloud referentie 
 <img title="Architecture" alt="Alt text" src="/docs/diagrams/stackit_ske_springboot_architecture.png" width="800">
 
 ## Documentatie Kubernetes gerelateerd
-| Document                                                     | Description           |
-|--------------------------------------------------------------|-----------------------|
-| [Architecture Overview](docs/gitops-strategie.md)            | Deployment en GitOps provisioning met FluxCD |
-| [POD resource utilization](docs/resource-instellingen.md)    | Resource utilization services en platform componenten |
-| [Workload Resilience strategie](docs/workload-resilience.md) | mechanismen waarmee de beschikbaarheid van workloads zoveel mogelijk gewaarborgd blijft |
-| [Networking Strategy](docs/network-policies.md)              | netwerkbeveiliging STACKIT Kubernetes Engine (SKE)                      |
-| [Security Architecture](docs/security.md)                    | Authentication, authorization and secrets |
+| Document                                           | Description           |
+|----------------------------------------------------|-----------------------|
+| [Architecture Overview](docs/gitops-strategie.md)  | Deployment en GitOps provisioning met FluxCD |
+| [POD resource utilization](docs/resource-instellingen.md) | Resource utilization services en platform componenten |
+| [Workload Resilience](docs/workload-resilience.md) | mechanismen waarmee de beschikbaarheid van workloads zoveel mogelijk gewaarborgd blijft |
+| [Networking Strategy](docs/network-policies.md)    | netwerkbeveiliging STACKIT Kubernetes Engine (SKE)                      |
+| [Security Architecture](docs/security.md)          | Authentication, authorization and secrets |
 
 
 ## Architectuur keuzes en overwegingen
