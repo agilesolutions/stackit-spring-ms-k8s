@@ -10,17 +10,6 @@ Deze samenwerking biedt een aantrekkelijk alternatief voor Azure Spring Cloud, m
 - Toegang tot een breed scala aan STACKIT-services, zoals STACKIT Secrets Manager, STACKIT Argus, en STACKIT Kubernetes Engine, die naadloos integreren met de SpringBoot applicatie.
 - Ondersteuning voor moderne cloud-native architecturen en DevOps-praktijken, inclusief GitOps provisioning met FluxCD, Infrastructure as Code (IaC) met Terraform, en CI/CD pipelines met GitLab CI/CD.
 
-## Doelgroep
-- Nederlandse overheden
-- Gemeenten
-- Provincies
-- Zorginstellingen
-- Financiële instellingen
-- Vitale infrastructuur
-
-De Nederlandse rijksoverheid heeft STACKIT bovendien geselecteerd als een Europees cloudalternatief binnen een raamovereenkomst.
-
-
 ## Doelstelling dit referentie project
 Het uitgangspunt is het migreren van een bestaand Azure Spring Cloud referentie project naar STACKIT SKE, waarbij we de volgende aspecten in ogenschouw nemen:
 - Applicatie architectuur en code migratie van Azure Spring Cloud naar STACKIT SKE.
@@ -31,17 +20,16 @@ Het uitgangspunt is het migreren van een bestaand Azure Spring Cloud referentie 
 - Infrastructure as Code (IaC) provisioning met Terraform.
 - CI/CD pipelines met GitLab CI/CD.
 
-<img title="Architecture" alt="Alt text" src="/docus/diagrams/stackit_ske_springboot_architecture.png" width="800">
+<img title="Architecture" alt="Alt text" src="/docs/diagrams/stackit_ske_springboot_architecture.png" width="800">
 
-Production-grade cloud-native reference architecture:
+## Documentatie Kubernetes gerelateerd
+| Document                                                  | Description                                           |
+|-----------------------------------------------------------|-------------------------------------------------------|
+| [Architecture Overview](docs/gitops-strategie.md)         | Deployment en GitOps provisioning met FluxCD          |
+| [POD resource utilization](docs/resource-instellingen.md) | Resource utilization services en platform componenten |
+| [Networking Strategy](docs/network-policies.md)           | netwerkbeveiliging STACKIT Kubernetes Engine (SKE)                                                      |
+| [Security Architecture](docs/security.md)                 | Authentication, authorization and secrets             |
 
-- Spring Boot 4/ Spring Framework 6 / Java 25
-- Gradle multi-module
-- OIDC (Keycloak-ready)
-- Kubernetes (STACKIT SKE)
-- FluxCD GitOps
-- Terraform IaC
-- GitLab CI/CD
 
 ## Architectuur keuzes en overwegingen
 | Architectuurkeuze                                  | Ontwerpafweging                                                                                                                                           |
@@ -233,12 +221,12 @@ stackit object-storage credentials create --credentials-group-id xxxx-xxxx-xxxx-
 
 
 ## GITOPS - manage applicaties met FluxCD.
-[Central idea is to show how to use GitOps](docus/GitOps-strategie.md) (FluxCD) to manage the deployment of a microservices application on Kubernetes.
+[Central idea is to show how to use GitOps](docs/gitops-strategie.md) (FluxCD) to manage the deployment of a microservices application on Kubernetes.
 1. How to bootstrap FluxCD in your Kubernetes cluster:
 ```
 flux bootstrap github --owner=agilesolutions --repository=stackit-spring-ms-k8s --branch=master --path=clusters/dev --personal
 ```
-Read full instructions in [docus/fluxcd.md](./docus/fluxcd.md)
+Read full instructions in [docus/fluxcd.md](docs/fluxcd.md)
 
 ## Layered structure
 1. SpringBoot App
