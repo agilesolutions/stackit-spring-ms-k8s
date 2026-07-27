@@ -5,3 +5,4 @@ resources:
   - image-update-automation.yaml
   - infrastructure.yaml
   - oidc.yaml
+  - external-dns.yaml

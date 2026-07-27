@@ -9,5 +9,5 @@ spec:
   dnsNames:
     - vergunning.platform.example.nl
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-production
     kind: ClusterIssuer

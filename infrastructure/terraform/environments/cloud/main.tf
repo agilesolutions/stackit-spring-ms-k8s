@@ -7,6 +7,15 @@ module "o11y" {
 
 }
 
+module "dns" {
+  source = "../../modules/dns"
+
+  project_id = var.project_id
+  zone_name  = "Overheid Zone"
+  dns_name   = var.dns_name
+}
+
+
 ##############################################
 # SKE CLUSTER
 ##############################################
@@ -15,7 +24,7 @@ module "ske" {
   project_id = var.project_id
   observability_instance_id = module.o11y.observability_instance_id
   cluster_name = var.cluster_name
-  dns_name = var.dns_name
+  dns_name = module.dns.dns_name
   node_pool_min = 3
   node_pool_max = 6
 
@@ -67,6 +76,7 @@ module "flux" {
   flux_path = "fluxcd/bootstrap"
   create_repository = false
   deploy_key_read_only = false
+  application_domain = module.dns.application_domain
 
   depends_on = [
     module.ske

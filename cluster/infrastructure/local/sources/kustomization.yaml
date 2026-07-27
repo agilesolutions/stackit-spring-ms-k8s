@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - cert-manager-helmrepository.yaml
+  - external-dns-helmrepository.yaml
   - external-secrets-helmrepository.yaml
   - keda-helmrepository.yaml
   - traefik-helmrepository.yaml

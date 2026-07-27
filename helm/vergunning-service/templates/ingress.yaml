@@ -3,10 +3,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vergunning-service
-  namespace: services
+  namespace: {{ .Release.Namespace }}
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # cert-manager creates the TLS certificate
+    cert-manager.io/cluster-issuer: { { .Values.ingress.clusterIssuer } }
+    # ExternalDNS creates the DNS record in STACKIT DNS
+    external-dns.alpha.kubernetes.io/hostname: { { .Values.ingress.host } }
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
@@ -19,7 +21,7 @@ spec:
               service:
                 name: vergunning-service
                 port:
-                  number: 8080
+                  number: {{ .Values.service.port }}
   tls:
     - secretName: vergunning-service-tls
       hosts:

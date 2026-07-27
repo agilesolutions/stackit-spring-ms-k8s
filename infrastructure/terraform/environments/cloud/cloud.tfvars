@@ -1,6 +1,6 @@
 project_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
-dns_name   = "CHANGE-ME.stackit.gg" # CHANGE-ME
+dns_name   = "overheid.example.nl" # CHANGE-ME
 
 environment = "cloud"
 

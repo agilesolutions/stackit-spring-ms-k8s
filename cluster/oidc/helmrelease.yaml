@@ -5,66 +5,50 @@ metadata:
   namespace: keycloak
 spec:
   interval: 30m
-
   chart:
     spec:
       chart: keycloakx
-      version: "7.2.x"
+      version: "7.2.2"
       sourceRef:
         kind: HelmRepository
         name: codecentric
         namespace: flux-system
-
   install:
     remediation:
       retries: 3
-
   upgrade:
     remediation:
       retries: 3
       strategy: rollback
-
   values:
-
     replicas: 2
-
     image:
       repository: quay.io/keycloak/keycloak
-
     command:
       - "/opt/keycloak/bin/kc.sh"
-
     args:
       - start
-
     service:
       type: ClusterIP
-
     ingress:
       enabled: true
-
       className: traefik
-
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        external-dns.alpha.kubernetes.io/hostname: keycloak.apps.overheid.example.nl
       hosts:
-        - host: keycloak.example.com
+        - host: keycloak.apps.overheid.example.nl
           paths:
             - path: /
               pathType: Prefix
-
       tls:
         - secretName: keycloak-tls
           hosts:
-            - keycloak.example.com
-
+            - keycloak.apps.overheid.example.nl
     database:
       vendor: postgres
-
     externalDatabase:
       enabled: true
-
       host: postgres-rw.database.svc.cluster.local
       port: 5432
       database: keycloak

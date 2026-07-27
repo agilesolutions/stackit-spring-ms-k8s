@@ -12,7 +12,9 @@ service:
 ingress:
   enabled: true
   className: traefik
-  host: vergunning.platform.example.nl
+  host: vergunning.apps.overheid.example.nl
+  clusterIssuer: letsencrypt-production
+  tlsSecretName: vergunning-service-tls
 
 resources:
   requests:
@@ -31,10 +33,6 @@ autoscaling:
 config:
   SPRING_PROFILES_ACTIVE: kubernetes
   LOG_LEVEL: INFO
-
-postgres:
-  host: postgres
-  database: vergunningdb
 
 keycloak:
   issuerUri: http://keycloak:8080/realms/overheid

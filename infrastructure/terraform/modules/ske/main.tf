@@ -2,12 +2,6 @@ data "stackit_ske_kubernetes_versions" "supported" {
   version_state = "SUPPORTED"
 }
 
-resource "stackit_dns_zone" "overheid" {
-  project_id = var.project_id
-  dns_name   = var.dns_name
-  name       = "Overheid Zone"
-}
-
 resource "stackit_ske_cluster" "overheid" {
   project_id             = var.project_id
   region = var.region
@@ -41,7 +35,7 @@ resource "stackit_ske_cluster" "overheid" {
   extensions = {
     dns = {
       enabled = true
-      zones   = [stackit_dns_zone.overheid.dns_name]
+      zones   = [var.dns_name]
     }
     observability = {
       instance_id = var.observability_instance_id

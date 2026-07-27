@@ -1,17 +1,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: oidc
+  name: external-dns
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./cluster/oidc
+  path: ./cluster/external-dns
   prune: true
-  wait: true
-  timeout: 10m
   sourceRef:
     kind: GitRepository
     name: flux-system
   dependsOn:
     - name: infrastructure
-wait: true
+  wait: true
